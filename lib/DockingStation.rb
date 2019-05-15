@@ -1,16 +1,20 @@
-require_relative 'Bike'
+require_relative "Bike"
+
 class DockingStation
   attr_reader :bike
 
   def initialize
-    @bike = bike
+    @storage = []
   end
 
   def release_bike
-     Bike.new
+    !@storage.empty? ? @bike : raise { RuntimeError.new("No bikes found!") }
   end
 
   def dock(bike)
-   bike
+    raise { RuntimeError.new("I am full of bikes!") } if @storage.length >= 20
+
+    @storage.push(bike)
+    @bike = bike
   end
 end
